@@ -20,11 +20,11 @@ console.log(1,0x1,07);
         console.log(err);
     }
 });*/
-
+/*
 fs.mkdir('test6',0666,function(err){
     if(err)
         console.error(err);
-});
+});*/
 /*fs.rmdir('test6',function(err){
     console.log(err);
 });*/
@@ -37,7 +37,7 @@ fs.mkdir('test6',0666,function(err){
         console.log(files);
     }
 })*/
-fs.readdir('test2',function(err,files){
+/*fs.readdir('test2',function(err,files){
     if(err){
 
     }else{
@@ -46,7 +46,7 @@ fs.readdir('test2',function(err,files){
             console.log(files[i]);
         }
     }
-});
+});*/
 //查看一个文件或目录详情
 /**
  * size 文件大小
@@ -55,9 +55,9 @@ fs.readdir('test2',function(err,files){
  * ctime create time
  * birthtime  创建的时间
  */
-fs.stat('test2/file1.txt',function(err,stat){
+/*fs.stat('test2/file1.txt',function(err,stat){
     console.log(stat);
-})
+})*/
 //判断文件是否存在
 /*fs.exists('test/file3',function(exists){
     console.log(exists);
@@ -72,17 +72,17 @@ fs.stat('test2/file1.txt',function(err,stat){
 /*fs.rename('test','test2',function(){
 
 })*/
-fs.rename('test6','test',function(){});
+/*fs.rename('test6','test',function(){});*/
 //截断文件
-var path = './msg.txt';
+/*var path = './msg41.txt';
 fs.stat(path,function(err,stat){
-    console.log(stat.size);
+    console.log('开始'+stat.size);
     fs.truncate(path,6,function(err){
         fs.stat(path,function(err,stat2){
             console.log(stat2.size);
         });
     })
-});
+});*/
 
 var path2 = './msg.txt';
 //删除空目录
@@ -91,11 +91,34 @@ var path2 = './msg.txt';
 })*/
 //创建一个目录的时候，要保证它的父目录 存在，不然会报错
 //创建子目录的时候，要先把父目录创建好
-makeP('test/subtest',0666,function(err){
+/*makeP('test/subtest',0666,function(err){
     if(err)
         console.error(err);
-})
+});*/
+/*fs.mkdir('test/subtest/b/a',0666,function(err){
+    console.log(err);
+})*/
 //创建目录
 function makeP(path){
+    var pathAry = path.split('/');
+    var j = pathAry.length;
+    do{
 
+        console.log(pathAry.length);
+        fs.mkdir(path,0666,function(err){
+            if(err){
+                var newpath = pathAry.splice(0,pathAry.length-1);
+                newpath = newpath.join('/');
+                fs.mkdir(newpath,0666,function(err){
+                    if(err){
+                        pathAry.pop();
+                    }
+                })
+            }else{
+                pathAry.pop();
+            }
+        });
+    }while (pathAry.length>1)
 }
+
+makeP('test/a/b');
