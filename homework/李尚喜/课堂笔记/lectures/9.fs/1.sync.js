@@ -6,7 +6,7 @@ var fs = require('fs');
  * 不带Sync的都是异步方法 回调
  */
     //<Buffer 72 65 61 64>
-var data = fs.readFileSync('./read.txt',{encoding:'utf8'});
+/*var data = fs.readFileSync('./read.txt',{encoding:'utf8'});
 console.log(data);//输出buffer
 
 //异步读取文件
@@ -34,4 +34,22 @@ function readFile(path,options,callback){
             callback(null,'文件内容');
         }
     },1000);
-}
+}*/
+
+/*
+* 同步读取  有返回值
+* */
+var data = fs.readFileSync('./read.txt',{encoding:'utf8'});
+console.log(data);
+/*
+* 异步读取
+* 没有返回值
+* 有回调函数
+* */
+fs.readFile('./read.txt',{encoding:'utf8'},function(err,data){
+    if(err){
+        console.log(err);
+    }else{
+        console.log(data);
+    }
+});

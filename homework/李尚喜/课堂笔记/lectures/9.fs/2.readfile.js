@@ -9,7 +9,19 @@
  * O_EXCL 排它的
  * O_APPEND 追加的附加的
  */
+/*
 var fs = require('fs');
 fs.readFile('./read.txt',{encoding:'utf8',flag:'r'},function(err,data){
     console.log(data);
 })
+*/
+
+
+var fs = require('fs');
+fs.readFile('./read.txt',{encoding:'utf8',flag:'r'},function(err,data){
+    if(err){
+
+    }else{
+        console.log(data);
+    }
+});
