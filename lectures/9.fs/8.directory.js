@@ -36,7 +36,7 @@ console.log(1,0x1,07);
  * ctime create time
  * birthtime  创建的时间
  */
-/*fs.stat('test/file1',function(err,stat){
+/*fs.stat('test/file1.txt',function(err,stat){
     console.log(stat);
 })*/
 //判断文件是否存在

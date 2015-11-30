@@ -10,7 +10,7 @@
  *   callback
  * 3.关闭文件
  */
-var fs = require('fs');
+/*var fs = require('fs');
 fs.open('./msg.txt','w',function(err,fd){
     console.log(fd);
     var buffer = new Buffer('珠峰培训');
@@ -22,4 +22,24 @@ fs.open('./msg.txt','w',function(err,fd){
         });
     });
 
+});*/
+
+
+var fs = require('fs');
+fs.open('./read.txt','w',function(err,fd){
+    var buffer = new Buffer('李尚喜');
+    fs.write(fd,buffer,0,3,0,function(err,bytesWrite,buffer){
+        console.log('写入'+bytesWrite+'字节');
+
+        fs.write(fd,buffer,3,3,3,function(err,bytesWrite,buffer){
+            console.log('写入'+bytesWrite+'字节');
+            fs.write(fd,buffer,6,3,6,function(err,bytesWrite,buffer){
+                console.log('写入'+bytesWrite+'字节');
+                console.log(buffer.toString());
+                fs.close(fd,function(){
+                    console.log(fd+'已关闭');
+                })
+            })
+        })
+    })
 });

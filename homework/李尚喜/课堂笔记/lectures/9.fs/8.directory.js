@@ -15,19 +15,38 @@ var fs = require('fs');
  */
 console.log(1,0x1,07);
 // 0666 转成10进制是多少
-/*fs.mkdir('test',0666,function(err){
+/*fs.mkdir('./test',0666,function(err){
+    if(err){
+        console.log(err);
+    }
+});*/
+
+fs.mkdir('test6',0666,function(err){
     if(err)
         console.error(err);
-})*/
+});
+/*fs.rmdir('test6',function(err){
+    console.log(err);
+});*/
+
 //读取此目录下面的所有文件和文件夹
-/*fs.readdir('test',function(err,files){
+/*fs.readdir('test2',function(err,files){
     if(err){
         console.error(err);
     }else{
         console.log(files);
     }
 })*/
+fs.readdir('test2',function(err,files){
+    if(err){
 
+    }else{
+        console.log(files);
+        for(var i=0;i<files.length;i++){
+            console.log(files[i]);
+        }
+    }
+});
 //查看一个文件或目录详情
 /**
  * size 文件大小
@@ -36,9 +55,9 @@ console.log(1,0x1,07);
  * ctime create time
  * birthtime  创建的时间
  */
-/*fs.stat('test/file1',function(err,stat){
+fs.stat('test2/file1.txt',function(err,stat){
     console.log(stat);
-})*/
+})
 //判断文件是否存在
 /*fs.exists('test/file3',function(exists){
     console.log(exists);
@@ -53,7 +72,7 @@ console.log(1,0x1,07);
 /*fs.rename('test','test2',function(){
 
 })*/
-
+fs.rename('test6','test',function(){});
 //截断文件
 var path = './msg.txt';
 fs.stat(path,function(err,stat){
@@ -63,11 +82,13 @@ fs.stat(path,function(err,stat){
             console.log(stat2.size);
         });
     })
-})
+});
+
+var path2 = './msg.txt';
 //删除空目录
-fs.rmdir('test',function(err){
+/*fs.rmdir('test',function(err){
     console.log(err)
-})
+})*/
 //创建一个目录的时候，要保证它的父目录 存在，不然会报错
 //创建子目录的时候，要先把父目录创建好
 makeP('test/subtest',0666,function(err){

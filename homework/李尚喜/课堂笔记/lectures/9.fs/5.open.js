@@ -12,7 +12,7 @@
  * 3.关闭文件
  *
  */
-var fs = require('fs');
+/*var fs = require('fs');
 
 //fs.readFileSync();
 var fd = fs.openSync('read.txt','r');
@@ -23,4 +23,14 @@ fs.readSync(fd,buffer,6,6);//培训
 console.log(buffer.toString());
 fs.closeSync(fd);
 var fd2 = fs.openSync('read.txt','r');
-console.log(fd2);
+console.log(fd2);*/
+
+
+var fs = require('fs');
+var fd = fs.openSync('read.txt','r');
+console.log(fd);//前面隐式包含：stdin ->0 ; stdout ->1; stderr ->2; 所以这个文件就是3了
+var buffer = new Buffer(12);
+fs.readSync(fd,buffer,0,12,0);
+//fs.readSync(fd,buffer,6,6);
+console.log(buffer.toString());
+fs.closeSync(fd);
