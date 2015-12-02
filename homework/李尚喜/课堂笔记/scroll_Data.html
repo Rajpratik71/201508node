@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style>
+		*{margin:0;padding:0;}
+		ul,li{list-style:none;}
+		#main{
+			width:1000px;
+			margin:0 auto;
+		}
+		#inner{
+			
+			height:2500px;
+			background:#f60;
+		}
+		li{
+			line-height:200px;
+			text-align: center;
+			font-size:16px;
+			font-family:'Microsoft Yahei';
+		}
+	</style>
+</head>
+<body>
+	<div id="main">
+		<div id="inner"></div>
+	</div>
+	<script>
+	var flag = 0;
+	var timer = null;
+	var timer2 = null;
+	var frag = document.createDocumentFragment();
+	var p = document.createElement('h1');
+	p.innerHTML = '加载中...........';
+	window.onscroll= function(){
+		timer2 && clearTimeout(timer2);
+		timer2 = setTimeout(loadData, 400);
+	}
+
+	function loadData(){
+		var winH = document.documentElement.clientHeight || document.body.clientHeight;
+		var sTop = document.documentElement.scrollTop || document.body.scrollTop;
+		var rg =Math.floor(Math.random()*256);
+		console.log('flag='+flag);
+		if(flag >= 100) {
+			p.innerHTML = '没有更多了。。。。。。。。';
+			return;
+		}
+
+		console.log(document.body.offsetHeight);
+		console.log((sTop + winH) /document.body.offsetHeight);
+		//滚动条的scrollTop + 可视区的高度 除以 当前整个文档的高度 offsetHeight 大于 95%；
+		if(  (sTop + winH) /document.body.offsetHeight > 0.95){
+			
+			for(var i=0;i<20;i++){
+				var oDiv = document.createElement('li');
+				oDiv.style.height = 200 + 'px';
+				oDiv.style.width = 200 + 'px';
+				oDiv.style.display = 'inline-block';
+				oDiv.innerHTML = '第'+((flag/20)+1)+'次加载';
+			oDiv.style.backgroundColor = 'RGB('+Math.floor(Math.random()*256)+','+Math.floor(Math.random()*256)+','+Math.floor(Math.random()*256)+')';
+
+				frag.appendChild(oDiv)
+			}
+			
+			//flag = true;
+			document.body.appendChild(p)
+			timer && clearTimeout(timer);
+			timer = setTimeout(function(){
+				document.getElementById('main').appendChild(frag);
+			}, 2000);
+			flag +=20;
+			//flag = true;
+		}
+		//console.log(document.body.offsetHeight);
+		//console.log(sTop);
+	}
+	</script>
+</body>
+</html>
