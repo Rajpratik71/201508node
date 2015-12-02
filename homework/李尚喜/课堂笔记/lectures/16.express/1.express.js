@@ -9,6 +9,7 @@
 
 var express = require('express');
 var app = express();
+console.log(app);
 //next 下一个
 app.use(function(req,res,next){
   res.setHeader('Content-Type','text/html;charset=utf-8');

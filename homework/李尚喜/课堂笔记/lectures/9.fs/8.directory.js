@@ -13,7 +13,7 @@ var fs = require('fs');
  * 其它人
  * 7  6  3
  */
-console.log(1,0x1,07);
+//console.log(1,0x1,07);
 // 0666 转成10进制是多少
 /*fs.mkdir('./test',0666,function(err){
     if(err){
@@ -101,24 +101,16 @@ var path2 = './msg.txt';
 //创建目录
 function makeP(path){
     var pathAry = path.split('/');
-    var j = pathAry.length;
-    do{
+    var flag = true;
+    fs.mkdir(path,0666,function(err){
+        if(err){
+            pathAry = pathAry.splice(0,pathAry.length-1);
+            console.log(pathAry.length);
 
-        console.log(pathAry.length);
-        fs.mkdir(path,0666,function(err){
-            if(err){
-                var newpath = pathAry.splice(0,pathAry.length-1);
-                newpath = newpath.join('/');
-                fs.mkdir(newpath,0666,function(err){
-                    if(err){
-                        pathAry.pop();
-                    }
-                })
-            }else{
-                pathAry.pop();
-            }
-        });
-    }while (pathAry.length>1)
+        }
+    });
+    arguments.callee();
+
 }
 
 makeP('test/a/b');
