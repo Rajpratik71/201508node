@@ -324,7 +324,21 @@
                     <div data-bg-set="{'img':'http://i3.mifile.cn/a4/T12Fd_BbxT1RXrhCrK.jpg','imgHd':'http://i3.mifile.cn/a4/T1kzCjBCEv1RXrhCrK.jpg'}" class="slide loaded" style="float: none; list-style: outside none none; position: absolute; width: 1226px; z-index: 0; display: none;">
                         <a target="_blank" data-stat-pid="2_15_5_71" data-stat-aid="AA11876" href="http://item.mi.com/buyphone/note2" data-stat-id="AA11876+2_15_5_71" onclick="_msq.push(['trackEvent', '79fe2eae924d2a2e-AA11876+2_15_5_71', 'http://item.mi.com/buyphone/note2', 'pcpid']);"><img srcset="http://i3.mifile.cn/a4/T1kzCjBCEv1RXrhCrK.jpg 2x" src="http://i3.mifile.cn/a4/T12Fd_BbxT1RXrhCrK.jpg"></a>
                     </div>
-                                        </div></div><div class="ui-controls ui-has-pager ui-has-controls-direction"><div class="ui-pager ui-default-pager"><div class="ui-pager-item"><a class="ui-pager-link active" data-slide-index="0" href="" data-stat-id="595e98d16a606864" onclick="_msq.push(['trackEvent', '79fe2eae924d2a2e-595e98d16a606864', '', 'pcpid']);">1</a></div><div class="ui-pager-item"><a class="ui-pager-link" data-slide-index="1" href="" data-stat-id="ea946571fc362fc3" onclick="_msq.push(['trackEvent', '79fe2eae924d2a2e-ea946571fc362fc3', '', 'pcpid']);">2</a></div><div class="ui-pager-item"><a class="ui-pager-link" data-slide-index="2" href="" data-stat-id="25a5fc3227c3a90a" onclick="_msq.push(['trackEvent', '79fe2eae924d2a2e-25a5fc3227c3a90a', '', 'pcpid']);">3</a></div><div class="ui-pager-item"><a class="ui-pager-link" data-slide-index="3" href="" data-stat-id="2aff13f70cc3f3b0" onclick="_msq.push(['trackEvent', '79fe2eae924d2a2e-2aff13f70cc3f3b0', '', 'pcpid']);">4</a></div><div class="ui-pager-item"><a class="ui-pager-link" data-slide-index="4" href="" data-stat-id="2f44bc37533c9a35" onclick="_msq.push(['trackEvent', '79fe2eae924d2a2e-2f44bc37533c9a35', '', 'pcpid']);">5</a></div></div><div class="ui-controls-direction"><a href="" class="ui-prev" >上一张</a><a href="" class="ui-next" >下一张</a></div></div></div>
+                                        </div></div><div class="ui-controls ui-has-pager ui-has-controls-direction">
+                                        <div class="ui-pager ui-default-pager">
+                                        <div class="ui-pager-item">
+                                        <a class="ui-pager-link active" data-slide-index="0" >1</a></div>
+                                        <div class="ui-pager-item"><a class="ui-pager-link" >2</a></div>
+                                        <div class="ui-pager-item"><a class="ui-pager-link" >3</a></div>
+                                        <div class="ui-pager-item"><a class="ui-pager-link" >4</a></div>
+                                        <div class="ui-pager-item"><a class="ui-pager-link" >5</a></div>
+                                        </div>
+                                        <div class="ui-controls-direction">
+                                        <a href="" class="ui-prev" >上一张</a>
+                                        <a href="" class="ui-next" >下一张</a>
+                                        </div>
+                                        </div>
+                                        </div>
         </div>
 
         <div class="home-hero-sub row">
@@ -697,7 +711,8 @@
                 sliderCtrl :options.sliderCtrl || $('.ui-pager-item'),
                 delay :  options.delay || 500,
                 duration : options.duration || 2000,
-                effect :  options.effect || 'fade'
+                effect :  options.effect || 'fade',
+                auto: options.auto || true
             };
             var settings = $.extend({},defaults,options);
 
@@ -714,34 +729,52 @@
                         $slide.css({'position':'absolute','display':'none','zIndex':1,'opacity':0})
                         .eq(0).css({'zIndex':50,'opacity':1,'display':'block'});
 
-                       slider=function(){
+                       slider=function(dir){
                             $slide.eq(i).animate({'opacity':0}, 500,function(){
                               $(this).css({'zIndex':1,'display':'none'})
                             });
-                            i++;
-                            if(i==len){
-                              i=0;
+                            if(dir){
+                                i++;
+                                if(i==len){
+                                  i=0;
+                                }
+                            }else{
+                                i--;
+                                if(i<0){
+                                    i=len-1;
+                                }
                             }
+                            console.log(i);
                             $slide.eq(i).css({'zIndex':50,'display':'block'}).stop().animate({'opacity':1},500);
                             selectActive(i);
                       }
                       break;
                   case 'left':
                           $slide.css({'position':'relative','float':'left','display':'block','zIndex':1,'opacity':1});
-                          var $clone = $slide.eq(0).clone();
-                          $clone.appendTo(settings.sliderBox);
+                          var $firstClone = $slide.eq(0).clone();
+                          var $lastClone = $slide.eq(len-1).clone();
+                          $firstClone.appendTo(settings.sliderBox);
+                          $lastClone.prependTo(settings.sliderBox)
                           len = settings.sliderBox.find('.slide').length;
-                          settings.sliderBox.css({'width':len*w});
+                          settings.sliderBox.css({'width':len*w,'left':-w});
                           
-                           slider=function(){
-                                i++;
+                           slider=function(dir){
+                            console.log(i);
+                                dir ? i++ : i--;
                                 console.log(i);
-                                settings.sliderBox.stop(true,true).animate({'left':-w*i}, 500,function(){
-                                    if(i==len-1){
-                                      i=0;
-                                      settings.sliderBox.css({'left':0});
-                                      selectActive(i);
+                                settings.sliderBox.stop(true,true).animate({'left':-w*(i+1)}, 500,function(){
+                                    if(dir){
+                                        if(i==len-2){
+                                          i=0;
+                                          settings.sliderBox.css({'left':-w});
+                                        }
+                                    }else{
+                                        if(i==-1){
+                                          i=len-3;
+                                          settings.sliderBox.css({'left':-w*(len-2)});
+                                        }
                                     }
+                                    selectActive(i);
                                 });
                                 selectActive(i);
                           }
@@ -770,27 +803,43 @@
               function selectActive(index){
                 settings.sliderCtrl.eq(index).children().addClass('active').parent().siblings().children().removeClass('active')
               }
-              timer && clearInterval(timer);
-              timer = setInterval(slider, 2000);
+              $('.ui-default-pager').on('click','.ui-pager-item',function(e){
+                    
+                    e.preventDefault();
+                     $slide.eq(i).animate({'opacity':0}, 500,function(){
+                              $(this).css({'zIndex':1,'display':'none'})
+                            });
+                     i=$(this).index();
+                    $slide.eq(i).css({'zIndex':50,'display':'block'}).stop().animate({'opacity':1},500).siblings('selector');
+                            selectActive(i);
+              })
+              if(settings.auto){
+                  timer && clearInterval(timer);
+                  timer = setInterval(function(){
+                    slider(true);
+                  }, 2000);
+              }
               $('#J_homeSlider,.ui-has-controls-direction').hover(function(){
                 timer && clearInterval(timer);
               },function(){
-                timer = setInterval(slider, 2000);
+                timer = setInterval(function(){
+                    slider(true);
+                }, 2000);
               });
               $('.ui-next').click(function(e){
                 e.preventDefault();
-                slider();
+                slider(true);
               });
               $('.ui-prev').click(function(e){
                 e.preventDefault();
-                slider();
+                slider(false);
               })
 
               return this;
             }
           
           $('#J_homeSlider').slider({
-            effect:'top' /* left top fade */
+            effect:'fade' /* left top fade */
           });
       })(jQuery);
 
