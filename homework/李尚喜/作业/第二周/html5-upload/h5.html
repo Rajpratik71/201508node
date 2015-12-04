@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>HTML5上传</title>
+    <style>
+        *{
+            margin:0;
+            padding:0;
+
+        }
+        #pic img{
+            margin: 0 10px 10px;
+            max-width: 100px;
+        }
+    </style>
+</head>
+<body>
+<input type="file" multiple id="uploadPic">
+<button id="btn">上传图片</button>
+<div id="pic"></div>
+<script>
+    window.onload = function(){
+        var oFile = document.getElementById('uploadPic');
+        var oBtn = document.getElementById('btn');
+        var frag = document.createDocumentFragment();
+        oBtn.onclick = function(){
+            var formData = new FormData();
+            for(var i=0;i<oFile.files.length;i++){
+                formData.append('avatar'+i,oFile.files[i]);
+            }
+            console.log(formData);
+            var xhr = new XMLHttpRequest();
+            xhr.open('POST','/upload',true);
+            xhr.onload = function(){
+                if(this.status === 200){
+                    var imgs = JSON.parse(this.responseText);
+                    for(var i=0;i<imgs.length;i++){
+                        console.log(imgs);
+                        var img = new Image();
+                        img.src = imgs[i];
+                        frag.appendChild(img);
+
+                    }
+
+                    document.getElementById('pic').appendChild(frag);
+                }
+            };
+            xhr.send(formData);
+        }
+    }
+</script>
+</body>
+</html>
