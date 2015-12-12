@@ -10,7 +10,6 @@ var fs = require('fs');
 for(var i=0;i<100;i++){
     ws.write(i+"");
 }
-*/
 
 
 function copy(src,desc){
