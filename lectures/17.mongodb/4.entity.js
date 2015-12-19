@@ -7,6 +7,7 @@
  *
  **/
 
+<<<<<<< HEAD
 function createPeron(o){
     for(var key in o){
         if(key == 'age') o[key] +=1;
@@ -39,3 +40,10 @@ function createPeron(o){
         }
     });
 }
+=======
+function savePerson(person){
+    //给这个person加一岁
+    //把这个person保存到数据里
+}
+savePerson({name:'zfpx',age:99});
+>>>>>>> 4ae2012862f821c612c2dcf8248a22e16c394b55
