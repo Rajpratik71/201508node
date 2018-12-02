@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="junyu">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        *{ margin:0; padding:0}
+        .title{ width:100px; height:20px; border:1px solid #ccc;}
+        .content{ width:100px; height:100px; border:1px solid #000;}
+    </style>
+</head>
+<body>
+
+
+<div  ng-controller="zfCtrl">
+    <opener title="{{title}}">
+        {{content}}
+    </opener>
+</div>
+<script src="../angular.js"></script>
+<script>
+
+angular.module('junyu',[]).controller('zfCtrl',function($scope){
+    $scope.title='标题';
+    $scope.content='内容';
+})
+.directive('opener',function(){
+
+    return {
+        restrict:'E',
+        replace:true,
+        transclude:true,
+        templateUrl:'opener.html',
+        link:function(scope,element,attrs){
+            scope.show=false;
+            scope.toggle=function(){
+                scope.show=!scope.show;
+            }
+        }
+    }
+})
+</script>
+</body>
+</html>

@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="junyu">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        *{ margin:0; padding:0}
+        .title{ width:100px; height:20px; border:1px solid #ccc;}
+        .content{ width:100px; height:100px; border:1px solid #000;}
+    </style>
+</head>
+<body>
+
+
+<div  ng-controller="zfCtrl">
+    <!--<opener title="{{title}}">-->
+        <!--{{content}}-->
+    <!--</opener>-->
+
+    <group>
+
+        <opener ng-repeat="opener in openers" title="opener.title">
+            {{opener.content}}
+        </opener>
+    </group>
+</div>
+<script src="../angular.js"></script>
+<script>
+
+    angular.module('junyu',[]).controller('zfCtrl',function($scope){
+                $scope.openers=[
+                    {title:'title1',content:'content1'},
+                    {title:'title2',content:'content2'},
+                    {title:'title3',content:'content3'}
+                ];
+            })
+            .directive('group',function(){
+
+                return {
+                    restrict:'E',
+                    replace:true,
+                    transclude:true,
+                    template:'<div ng-transclude></div>',
+                    controller:function(){
+                        var openers=[];
+                        this.addOpener=function(opener){
+                            openers.push(opener);
+                        }
+                        this.open=function(current){
+                            current.show=!current.show;
+                            angular.forEach(openers,function(opener){
+                                if(opener !=current){
+                                    opener.show=false;
+                                }
+                            })
+                        }
+
+
+                    }
+                }
+            })
+            .directive('opener',function(){
+                return {
+                    restrict:'E',
+                    replace:true,
+                    require:'?^group',
+                    transclude:true,
+                    scope:{
+                        title:'=title'
+                    },
+                    templateUrl:'opener.html',
+                    link:function(scope,element,attrs,groupCont){
+                        groupCont.addOpener(scope);
+                        scope.show=false;
+                        scope.toggle=function(){
+                            groupCont.open(scope)
+                        }
+
+
+
+                    }
+                }
+            })
+</script>
+</body>
+</html>

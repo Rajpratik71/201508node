@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="junyu">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="bootstrap.css">
+</head>
+<body ng-controller="con">
+<zf-alert level="success">
+    <p>succsee!</p>
+</zf-alert>
+<zf-alert level="danger">
+    <p>danger!</p>
+</zf-alert>
+<script src="../angular.js"></script>
+<script>
+    angular.module('junyu',[]).controller('con',function($scope){}).directive('zfAlert',function(){
+        return {
+            replace:true,
+            truetransclude:true,
+            restrive:'E',
+            scope:{level:'@'},
+            template:'<div class="alert alert-{{level}}" ng-transclude role="alert"></div>',
+            link:function(scope,element,arrts){
+                element.bind('click',function(){
+                    alert(element.text())
+                })
+            }
+        }
+    })
+</script>
+</body>
+</html>

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="junyu">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body ng-controller="CartController">
+<p>sums</p>
+<input type="text" ng-change="change()" ng-model="total">
+<div ng-controller="DatailController">
+    <table>
+        <tr>
+            <td>name</td>
+            <td>price</td>
+            <td>number</td>
+        </tr>
+        <tr ng-repeat="item in items">
+            <td>{{item.name}}</td>
+            <td>{{item.price}}</td>
+            <td><input type="text" ng-change="change()" ng-model="item.amount" ></td>
+        </tr>
+    </table>
+</div>
+<script src="angular.js"></script>
+<script>
+    angular.module('junyu',[]);
+    angular.module('junyu').controller('CartController',function($scope){
+        $scope.total=10;
+        $scope.change=function(){
+            $scope.$broadcast('changePrice',$scope.total)//向下传递事件
+        };
+        $scope.$on('changeMount',function(err,data){//监听事件
+            $scope.total=data[0].amount*data[0].price;
+        })
+    });
+    angular.module('junyu').controller('DatailController',function($scope){
+        $scope.items=[{name:'F35',amount:1,price:10}]
+        $scope.change=function(){
+
+            $scope.$emit('changeMount',$scope.items);//向上监听事件
+
+        }
+        $scope.$on('changePrice',function(err,data){
+
+
+            $scope.items[0].amount=data/$scope.items[0].price;
+
+        })
+    });
+
+</script>
+</body>
+</html>

@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="junyu">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        *{ margin:0; padding:0;}
+        div{ height:100px; width:100px;border:1px solid #ccc;}
+    </style>
+</head>
+<body>
+<div my-drag></div>
+<my-drag>ssdaklasj</my-drag>
+<script src="../angular.js"></script>
+<script>
+    angular.module('junyu',[]).directive('myDrag',function(){
+        return {
+            link:function(scope,element,attrs){
+                element.on('click',function(){
+                    console.log(this.style)
+                })
+            }
+        }
+    })
+</script>
+</body>
+</html>

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="border">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<div zf-border>div</div>
+<span zf-border>span</span>
+<input type="text" zf-border>
+<script src="angular.js"></script>
+<script>
+    angular.module('border',[]).directive('zfBorder',function(){
+        return{
+            link:function(scope,element,attrs){
+
+                element.on('mouseover',function(){
+                    element.css({outline:'red dotted thick','font-size':'20px'})
+                });
+                element.on('mouseout',function(){
+                    element.css({outline:'none','font-size':'16px'})
+                })
+            }
+
+
+        }
+
+    })
+</script>
+</body>
+</html>

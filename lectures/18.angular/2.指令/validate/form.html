@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
-    <link rel="stylesheet" href="../bootstrap.css">
+    <link rel="stylesheet" href="../../../../homework/贾畯嵎/fourth/指令/bootstrap.css">
 </head>
 <body>
 <div class="container" ng-controller="FormCtrl">
@@ -63,6 +63,7 @@
             require:'^ngModel',
             link:function(scope,element,attrs,ngController){
                 ngController.$parsers.unshift(function(viewValue){
+
                    var other = scope.user[attrs.samePassword];
                     console.log(viewValue,other);
                     if(other == viewValue ){

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" ng-app="formApp">
+    <title>Title</title>
+    <link rel="stylesheet" href="bootstrap.css">
+</head>
+<body>
+<div class="container" ng-controller="formCtrl">
+    <form action="" name="myform">
+        <div class="form-group">
+            <label for="username"> 用户名</label>
+            <input type="text" id="username" name="username">
+
+        </div>
+        <div class="form-group">
+            <label for="email"> 用户名</label>
+            <input type="text" id="email" name="email">
+
+        </div>
+        <div class="form-group">
+
+        </div>
+    </form>
+    <div>
+        <pre>
+            {{myform}}
+        </pre>
+    </div>
+</div>
+
+<script src="../../angular.js"></script>
+<script>
+    angular.module('formApp',[])
+            .controller('formCtrl',function($scope){
+
+            })
+</script>
+</body>
+</html>

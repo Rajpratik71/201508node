@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="junyu">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <div ng-controller="MyController2">
+        name
+        <input type="text" ng-model="username">
+        <button ng-click="sayHello()">hi</button>
+        <hr>
+        {{greetion}}
+        {{username}}
+    </div>
+    <script src="angular.js"></script>
+    <script>
+        angular.module('junyu',[]);
+        angular.module('junyu').controller('MyController2',function($scope,$timeout){
+            $scope.username='junyu';
+            $scope.sayHello=function(){
+                console.log(1)
+                $scope.greetion='hello'+ $scope.username+'!';
+            };
+            $timeout(function(){
+                $scope.username='hehe'
+            },3000)
+            $scope.$watch('username',function(){
+                console.log($scope);
+                console.log(arguments);// 操作的数据 操作前的数据 ChildScope
+                console.log($scope.username)
+            })
+        });
+
+
+    </script>
+</body>
+</body>
+</html>

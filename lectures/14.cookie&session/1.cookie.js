@@ -17,16 +17,16 @@
  *  max-age
  *    指定cookie的失效时间，如果没有指定失效时间，那么cookie不会写入硬盘，只持续到会话结束(浏览器关闭)
  *  httpOnly
- *    不能在js里操作cookie
- *
- * @type {exports|module.exports}
- */
-var http = require('http');
-var url = require('url');
-var querystring = require('querystring');
-http.createServer(function(request,response){
-    var urlObj = url.parse(request.url,true);
-    var pathname = urlObj.pathname;
+    *    不能在js里操作cookie
+    *
+    * @type {exports|module.exports}
+    */
+    var http = require('http');
+    var url = require('url');
+    var querystring = require('querystring');
+    http.createServer(function(request,response){
+        var urlObj = url.parse(request.url,true);
+        var pathname = urlObj.pathname;
     if('/favicon.ico' == pathname){
         return response.end('404');
     }else if(pathname == '/write'){//写cookie

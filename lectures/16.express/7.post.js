@@ -18,9 +18,9 @@ var storage = multer.diskStorage({
     filename: function (req, file, cb) {
         cb(null, file.originalname)
     }
-})
+});
 
-var upload = multer({ storage: storage })
+var upload = multer({ storage: storage });
 
 app.use(bodyParser.urlencoded({extended:true}));
 app.get('/reg',function(req,res){

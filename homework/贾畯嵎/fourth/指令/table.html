@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="junyu">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div ng-controller="ParentCtrl">
+    <zf-table datasource="teachers"></zf-table>
+    <table>
+        <tr>
+            <th>name</th>
+            <th>age</th>
+        </tr>
+        <tr>
+            <td>zhangsan</td>
+            <td>18</td>
+        </tr>
+    </table>
+</div>
+
+<div ng-controller="ChildCtrl">
+    <zf-table datasource="students"></zf-table>
+</div>
+<script src="../angular.js"></script>
+<script>
+    angular.module('junyu',[]);
+    angular.module('junyu').controller('ParentCtrl',function($scope){
+        $scope.teachers=[
+            {name:'zhangsan',age:18},
+            {name:'lisi',age:16}
+        ]
+    });
+    angular.module('junyu').controller('ChildCtrl',function($scope){
+        $scope.students=[
+            {name:'xiaowu',age:2},
+            {name:'xiaoliu',age:3}
+        ]
+    });
+    angular.module('junyu').directive('zfTable',function(){
+        return {
+            scope:{
+                items:'=datasource'
+
+            },
+            templateUrl:'items.html'
+        }
+    })
+
+</script>
+</body>
+</html>

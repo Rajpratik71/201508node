@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="junyu">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body ng-controller="zfCtrl">
+外部名称 <input type="text" id="outername" ng-model="zhangsan.name">
+外部家乡 <input type="text" ng-model="zhangsan.address">
+<zf-person name="{{zhangsan.name}}" address="zhangsan.address" say="say(username)"></zf-person>
+<zf-person name="{{lisi.name}}" address="lisi.address" say="say(username)"></zf-person>
+<script src="../angular.js"></script>
+
+
+<script>
+    angular.module('junyu',[])
+    angular.module('junyu').controller('zfCtrl',function($scope){
+        $scope.zhangsan={
+            name:'张三',
+            address:'bj'
+        };
+        $scope.lisi={
+            name:'李四',
+            address:'sh'
+        };
+        $scope.say=function(username){
+            alert(username)
+        }
+    });
+    angular.module('junyu').directive('zfPerson',function(){
+        return {
+            restrict:'E',
+            replace:true,
+            scope:{
+                username:'@name',
+                address:'=',
+                say:'&say'
+            },
+            template:'<div>{{username}}{{address}}指令名字 <input type="text" ng-model="username">指令家乡 <input type="text" ng-model="address">  <button ng-click="say({username:username})">打招呼</button></div>'
+        }
+    })
+
+</script>
+</body>
+</html>

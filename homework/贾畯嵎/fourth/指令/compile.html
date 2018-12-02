@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="junyu">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div items="3">
+    <p>{{words}}</p>
+    <p>{{words}}</p>
+    <p>{{words}}</p>
+</div>
+<script src="../angular.js"></script>
+<script>
+angular.module('junyu',[])
+        .directive('items',function(){
+            return{
+                compile:function(element,attrs,transclute){
+                    var tpl=element.children();
+                    for(var i=1;i<attrs.items;i++){
+                        element.append(tpl.clone());
+                    }
+                    return function(scope,element,attrs){
+                        scope.words='hello'
+                    }
+                }
+            }
+        })
+</script>
+</body>
+</html>

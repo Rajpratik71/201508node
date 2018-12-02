@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en" ng-app>
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        .red{  border:1px solid red;}
+        .big{
+            height:100px;
+            width:100px;
+        }
+    </style>
+</head>
+<body>
+<div ng-class="{red:red,big:big}" ng-mouseout="red=!red;big=!big" ng-mouseover="red=!red;big=!big">
+    hello
+</div>
+<script src="angular.js"></script>
+</body>
+</html>

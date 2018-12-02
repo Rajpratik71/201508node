@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="junyu">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link href="../bootstrap.css" rel="stylesheet" />
+</head>
+<body>
+<div class="container" ng-controller="formCtrl">
+    <form action="" name="myform">
+        <div class="form-group" ng-class="{'has-error':myform.username.$invalid && myform.username.$dirty}">
+            <label for="username">用户名</label>
+            <input type="text" unique class="form-control" required="required" ng-pattern="/^\d+/" id="username" ng-model="user.username" name="username">
+        </div>
+        <div class="help-block" ng-show="myform.username.$invalid && myform.username.$dirty">
+            <span class="text-danger" ng-show="myform.username.$error.required">没有填写用户名</span>
+            <span class="text-danger" ng-show="myform.username.$error.pattern">正则校验没有没有通过</span>
+        </div>
+        <div class="form-group" ng-class="{'has-error':myform.email.$invalid && myform.email.$dirty}">
+            <label for="email">邮箱</label>
+            <input type="email" class="form-control" id="email" required="required" ng-model="user.email" name="email">
+        </div>
+        <div class="help-block" ng-show="myform.email.$invalid && myform.email.$dirty">
+            <span class="text-danger" ng-show="myform.email.$error.required">没有填写邮箱名称</span>
+            <span class="text-danger" ng-show="myform.email.$error.email">不是合法的邮箱</span>
+        </div>
+        <div class="form-group" ng-class="{'has-error':myform.age.$invalid && myform.age.$dirty}">
+            <label for="age">年龄</label>
+            <input type="text" class="form-control" id="age" required="required" ng-model="age.email" ng-pattern="/^([2-8]\d)|(90)|(1[89])$/" name="age">
+        </div>
+        <div class="help-block" ng-show="myform.age.$invalid && myform.age.$dirty">
+            <span class="text-danger" ng-show="myform.age.$error.required">没有填写邮箱名称</span>
+            <span class="text-danger" ng-show="myform.age.$error.email">不是合法的邮箱</span>
+        </div>
+
+        <div class="form-group" ng-class="{'has-error':myform.password.$invalid && myform.password.$dirty}">
+            <label for="password">密码</label>
+            <input type="password" same-password="repassword" class="form-control" required="required" ng-pattern="/^\d+/" id="password" ng-model="user.password" name="password">
+        </div>
+        <div class="help-block" ng-show="myform.password.$invalid && myform.password.$dirty">
+            <span class="text-danger" ng-show="myform.password.$error.required">没有填写密码</span>
+            <span class="text-danger" ng-show="myform.password.$error.pattern">正则校验没有没有通过</span>
+        </div>
+        <div class="form-group" ng-class="{'has-error':myform.repassword.$invalid && myform.repassword.$dirty}">
+            <label for="repassword">重复密码</label>
+            <input type="password" same-password="password" class="form-control" required="required" ng-pattern="/^\d+/" id="repassword" ng-model="user.repassword" name="repassword">
+        </div>
+        <span class="text-danger" ng-show="myform.repassword.$error.samePassword">密码不一致</span>
+
+        <div class="help-block" ng-show="myform.repassword.$invalid && myform.repassword.$dirty">
+
+            <span class="text-danger" ng-show="myform.repassword.$error.required">没有填写重复密码</span>
+            <span class="text-danger" ng-show="myform.repassword.$error.pattern">正则校验没有没有通过</span>
+        </div>
+        <div class="form-group">
+            <button type="submit" ng-disabled="myform.$invalid" class="btn btn-primary">提交</button>
+        </div>
+    </form>
+    <div>
+        <pre>{{myform | json}}</pre>
+    </div>
+</div>
+<script src="../../angular.js"></script>
+<script>
+    angular.module('junyu',[])
+            .controller('formCtrl',function($scope){
+                $scope.user={};
+            })
+            .directive('samePassword',function(){
+                return{
+                    require:'^ngModel',
+                    link:function(scope,element,attrs,ngController){
+                        ngController.$parsers.unshift(function(value){
+                            console.log(attrs.samePassword);
+                            var other = scope.user[attrs.samePassword];
+                            //console.log( myform.error)
+                            console.log(other,value);
+                            if(other==value){
+                                ngController.$setValidity('samePassword',true);
+
+                            }else{
+                                ngController.$setValidity('samePassword',false)
+                                //return undefined;
+                            }
+                            return value;
+                            //console.log(value)
+                        })
+                    }
+                }
+            })
+            .directive('unique',function($http){
+                return {
+                    require:'ngModel',
+                    link:function(scope,element,attrs,ngController){
+                        scope.$watch(attrs.ngModel,function(){
+                            $http({
+                                method:'POST',
+
+
+
+                            })
+                        })
+                    }
+                }
+            })
+</script>
+</body>
+</html>

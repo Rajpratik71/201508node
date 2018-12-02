@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="junyu2">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body ng-init="age=6">
+    <div ng-controller="MyController">
+        {{name}}
+
+        <div ng-controller="MyController2">
+            {{name}}
+            {{age}}
+        </div>
+    </div>
+    <div ng-controller="MyController">
+        {{name}}
+
+        <div ng-controller="MyController2">
+            {{name}}
+            {{age}}
+        </div>
+    </div>
+</body>
+<script src="angular.js"></script>
+<script>
+    angular.module('junyu1',[]);
+    angular.module('junyu1').controller('MyController',function($scope){
+        $scope.name='junyu1';
+    });
+    angular.module('junyu2',['junyu1']);
+    angular.module('junyu2').controller('MyController2',function($scope){
+        $scope.name='junyu2';
+    });
+
+
+
+</script>
+
+</html>
