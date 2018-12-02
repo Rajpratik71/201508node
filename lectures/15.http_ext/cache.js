@@ -10,8 +10,8 @@ http.createServer(function(req,res){
  var filename = req.url.slice(1);//获取访问的文件名
     console.log(req.url);
  //matchHandler(filename,req,res);
-  // etagHandler(filename,req,res);
-  expirehandler(filename,req,res);
+   etagHandler(filename,req,res);
+  //expirehandler(filename,req,res);
 }).listen(8080);
 
 /**

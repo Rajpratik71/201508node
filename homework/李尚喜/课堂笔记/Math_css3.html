@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style>
+		*{margin:0;padding:0;}
+		ul,li{list-style:none;}
+		#wrap{
+			position:relative;
+			width:200px;
+			height: 200px;
+			margin: 100px auto;
+			background: #ccc;
+			border-radius:50%;
+		}
+		.active #box{
+			
+			transform: scale(1) rotate(360deg);
+		}
+		#box{
+			position:relative;
+			width:200px;
+			height: 200px;
+			margin: 100px auto;
+			background: #ccc;
+			border-radius:50%;
+			transition:all 1s ease-in;
+			transform: scale(0) rotate(0deg);
+		}
+		li{
+			width:30px;
+			height: 30px;
+			background:#f60;
+			border-radius:50%;
+			text-align: center;
+			font-size:16px;
+			font-family:'Microsoft Yahei';
+			
+		}
+	</style>
+</head>
+<body>
+	<div id="wrap">
+		<ul id="box"></ul>
+	</div>
+	<script>
+		
+		function createBox(total,r){
+			var frag = document.createDocumentFragment();
+			var gap = 360/total; //每个相隔的角度
+			for(var i=1;i<=total;i++){
+				var oSbox = document.createElement('li');
+				oSbox.style.position = 'absolute';
+				//console.log(100 + Math.sin(gap*i)*100);
+				oSbox.style.left = (r + Math.cos(Math.PI/180*gap*i)*r)-15 + 'px';
+				oSbox.style.top = (r + Math.sin(Math.PI/180*gap*i)*r)-15 + 'px';
+				frag.appendChild(oSbox);
+			};
+			document.getElementById('box').appendChild(frag);
+		}
+			createBox(10,100);
+			var flag=true,
+				oWrap = document.getElementById('wrap'),
+				timer = null;
+			oWrap.onclick = function(){
+				flag ? this.className='active' : this.className='';
+				flag = !flag;
+			};
+			timer && clearInterval(timer);
+			timer = setInterval(function(){
+				flag ? oWrap.className='active' : oWrap.className='';
+				flag = !flag;
+			},2000);
+	</script>
+</body>
+</html>
